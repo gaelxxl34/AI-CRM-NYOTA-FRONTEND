@@ -114,11 +114,6 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
           rel="stylesheet"
         />
-        {/* Google Font - Pacifico for logo */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-          rel="stylesheet"
-        />
         {/* Theme Color for mobile browsers */}
         <meta name="theme-color" content="#7C1D1D" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

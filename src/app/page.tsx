@@ -9,15 +9,14 @@ import { TypewriterText } from '@/components/common/TypewriterText';
 import { PhoneMockup } from '@/components/features/PhoneMockup';
 
 export default function Home() {
-  const [isVisible, setIsVisible] = useState(false);
   const [expandedFAQ, setExpandedFAQ] = useState([0, 1, 2]);
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  
+  // Scroll progress values for future parallax effects
+  useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+
 
   const toggleFAQ = (index: number) => {
     setExpandedFAQ(prev => 
@@ -74,6 +73,7 @@ export default function Home() {
                     height={40}
                     className="w-auto h-8 sm:h-10"
                     priority
+                    unoptimized
                   />
                 </motion.div>
               </motion.div>
@@ -514,11 +514,14 @@ export default function Home() {
                   <motion.div
                     className={`absolute inset-0 bg-gradient-to-r ${story.gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}
                   />
-                  <img
+                  <Image
                     src={story.image}
                     alt={`${story.title} - ${story.description}`}
+                    width={400}
+                    height={160}
                     className="w-full h-32 sm:h-40 object-cover group-hover:scale-110 transition-transform duration-500"
                     loading="lazy"
+                    unoptimized
                   />
                   <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
                     <span className={`inline-flex items-center px-2 py-1 sm:px-3 sm:py-1 rounded-full bg-gradient-to-r ${story.gradient} text-white text-xs font-bold uppercase tracking-wide`}>

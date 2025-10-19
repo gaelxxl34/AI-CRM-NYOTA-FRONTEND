@@ -18,7 +18,7 @@ export interface Lead {
   source: string;
   assignedTo?: string;
   tenantId: string;
-  customFields?: Record<string, any>;
+  customFields?: Record<string, unknown>;
   createdAt: Date;
   updatedAt: Date;
   lastContactedAt?: Date;
@@ -35,6 +35,8 @@ export interface Interaction {
   tenantId: string;
   createdAt: Date;
 }
+
+export type AnyValue = string | number | boolean | null | undefined | Record<string, unknown> | unknown[];
 
 export interface ApiResponse<T> {
   success: boolean;

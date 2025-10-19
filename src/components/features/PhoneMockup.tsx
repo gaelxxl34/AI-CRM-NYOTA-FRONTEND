@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 
 interface Message {
@@ -21,7 +21,7 @@ export function PhoneMockup() {
   const [isTyping, setIsTyping] = useState(false);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
 
-  const conversationFlow: Message[] = [
+  const conversationFlow: Message[] = useMemo(() => [
     {
       id: 1,
       text: "Hi! I'm interested in your MBA program 🎓",
@@ -43,7 +43,7 @@ export function PhoneMockup() {
       time: '14:24',
       delay: 2500,
     },
-  ];
+  ], []);
 
   useEffect(() => {
     if (currentMessageIndex < conversationFlow.length) {
@@ -74,7 +74,7 @@ export function PhoneMockup() {
       
       return () => clearTimeout(resetTimer);
     }
-  }, [currentMessageIndex]);
+  }, [currentMessageIndex, conversationFlow.length]);
 
   return (
     <div className="relative w-full max-w-[240px] sm:max-w-[280px] mx-auto">
