@@ -1,0 +1,548 @@
+'use client';
+
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
+import { useRef, useState } from 'react';
+
+type Region = 'africa' | 'us' | 'global';
+
+export default function Home() {
+  const [selectedRegion, setSelectedRegion] = useState<Region>('global');
+  const { scrollYProgress } = useScroll();
+  const heroRef = useRef(null);
+  const heroInView = useInView(heroRef, { once: true });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  const regionContent = {
+    africa: {
+      badge: '🌍 BUILT FOR AFRICAN BUSINESSES',
+      headline: 'Your CRM',
+      subheadline: 'Your Rules',
+      description: 'Stop adapting your business to rigid software. Nyota adapts to your workflow with WhatsApp-first communication and empowers African businesses to close more deals.',
+      stats: [
+        { value: '30min', label: 'Setup Time' },
+        { value: '92%', label: 'WhatsApp Open Rate' },
+        { value: 'M-Pesa', label: 'Local Payments' },
+        { value: '$49', label: 'Per User/Month' },
+      ],
+      ctaText: 'WhatsApp-first CRM with M-Pesa payments. Setup in 30 minutes. No credit card required.',
+    },
+    us: {
+      badge: '🇺🇸 ENTERPRISE POWER, STARTUP SPEED',
+      headline: 'The CRM That',
+      subheadline: 'Grows With You',
+      description: 'No more rigid workflows or months of implementation. Nyota delivers enterprise-grade CRM features with the agility your business needs—fully operational in 30 minutes.',
+      stats: [
+        { value: '30min', label: 'Setup Time' },
+        { value: '70%', label: 'Cost Savings' },
+        { value: '3x', label: 'Faster Implementation' },
+        { value: '$49', label: 'Per User/Month' },
+      ],
+      ctaText: 'Get enterprise CRM features for 70% less. Setup today, not next quarter. Cancel anytime.',
+    },
+    global: {
+      badge: '🌐 GLOBAL CRM, LOCAL EXPERTISE',
+      headline: 'One Platform',
+      subheadline: 'Every Market',
+      description: 'Whether you are in Lagos or Los Angeles, Nyota adapts to your market, supports your payment methods, and speaks your customers language—all while keeping costs low.',
+      stats: [
+        { value: '30min', label: 'Setup Time' },
+        { value: '150+', label: 'Countries' },
+        { value: '3x', label: 'More Leads' },
+        { value: '$49', label: 'Per User/Month' },
+      ],
+      ctaText: 'One platform for every market. Multi-channel, multi-currency, multi-language. Start free today.',
+    },
+  };  const currentContent = regionContent[selectedRegion];
+
+  return (
+    <main className="bg-black min-h-screen">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-red-950/20 to-black">
+          <motion.div 
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(220,38,38,0.15),transparent_50%)]"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+
+        <motion.div 
+          className="absolute top-20 left-10 w-72 h-72 bg-primary-600/10 rounded-full blur-3xl"
+          animate={{ x: [0, 100, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.div
+          ref={heroRef}
+          className="relative z-10 max-w-7xl mx-auto px-6 py-20 text-center"
+          initial={{ opacity: 0, y: 50 }}
+          animate={heroInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Universal Tagline */}
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, y: -30 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Your CRM, <span className="text-primary-500">Your Way</span>
+            </h2>
+            <p className="text-gray-400 text-sm md:text-base">
+              Adapts to your market. Speaks your language. Grows with your business.
+            </p>
+          </motion.div>
+
+          {/* Region Selector */}
+          <motion.div
+            className="mb-12 flex justify-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className="inline-flex gap-2 p-1.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full">
+              {[
+                { id: 'africa' as Region, label: '🌍 Africa' },
+                { id: 'us' as Region, label: '🇺🇸 US' },
+                { id: 'global' as Region, label: '🌐 Global' },
+              ].map((region) => (
+                <button
+                  key={region.id}
+                  onClick={() => setSelectedRegion(region.id)}
+                  className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
+                    selectedRegion === region.id
+                      ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg shadow-primary-600/50'
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  {region.label}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedRegion}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="mb-6">
+                <span className="px-4 py-2 bg-primary-600/20 border border-primary-600/50 rounded-full text-primary-400 text-sm font-semibold">
+                  {currentContent.badge}
+                </span>
+              </div>
+
+              <h1 className="text-6xl md:text-8xl font-bold mb-6 text-white leading-tight">
+                {currentContent.headline}
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700">
+                  {currentContent.subheadline}
+                </span>
+              </h1>
+
+              <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+                {currentContent.description}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <button className="group px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-semibold text-lg hover:scale-105 transition-all shadow-2xl shadow-primary-600/50">
+              Start Free Trial - First 50 Leads FREE
+              <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
+            </button>
+            <button className="px-8 py-4 bg-white/5 border-2 border-white/10 text-white rounded-lg font-semibold text-lg hover:bg-white/10 transition-all">
+              <span className="mr-2">▶</span> Watch 2-Min Demo
+            </button>
+          </motion.div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${selectedRegion}-stats`}
+              className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {currentContent.stats.map((stat, idx) => (
+                <div key={idx} className="text-center">
+                  <div className="text-4xl font-bold text-primary-500 mb-2">{stat.value}</div>
+                  <div className="text-sm text-gray-400 uppercase">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+      </section>
+
+      {/* What We Actually Do Section - The Money Maker */}
+      <section className="py-24 bg-gradient-to-b from-black to-red-950/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              Here's What We Actually <span className="text-primary-600">DO</span> For You
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Not vague promises. Real features that make you money TODAY.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: '💬',
+                title: 'Never Miss a Message Again',
+                description: 'Every WhatsApp, email, and SMS in ONE inbox. No more switching between 5 apps. See every customer conversation in one place. Respond 10x faster.',
+                result: '↗ 87% faster response times'
+              },
+              {
+                icon: '🤖',
+                title: 'Auto-Follow-Up That Actually Works',
+                description: 'Lead went cold? We automatically send a follow-up WhatsApp in 3 days. Still no reply? Another one in a week. Never manually chase leads again.',
+                result: '↗ 40% more conversions from follow-ups'
+              },
+              {
+                icon: '📊',
+                title: 'See Which Leads Are HOT Right Now',
+                description: 'AI scores every lead based on engagement. "Sarah opened your message 3 times today" = HOT. "John hasn\'t replied in 2 weeks" = COLD. Prioritize intelligently.',
+                result: '↗ 3x more deals closed'
+              },
+              {
+                icon: '🎯',
+                title: 'Custom Workflows For YOUR Business',
+                description: 'Real estate? Track: Inquiry → Viewing → Offer → Sale. University? Track: Application → Interview → Admission. YOUR stages. YOUR fields. YOUR rules.',
+                result: '↗ Fits how you ACTUALLY work'
+              },
+              {
+                icon: '📱',
+                title: 'WhatsApp Campaigns in 60 Seconds',
+                description: 'Send 1,000 personalized WhatsApp messages with one click. "Hi John, that 3-bedroom apartment you liked just dropped in price!" Bulk messaging that feels personal.',
+                result: '↗ 92% open rate (vs 20% email)'
+              },
+              {
+                icon: '💰',
+                title: 'Track Every Dollar You\'re Making',
+                description: 'See your entire sales pipeline. "50 leads worth $200K in total. 20 hot prospects worth $80K this month." Know your numbers. Forecast revenue accurately.',
+                result: '↗ Predict sales 3 months ahead'
+              },
+            ].map((feature, idx) => (
+              <motion.div
+                key={idx}
+                className="relative p-8 bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-2xl hover:border-primary-600/50 transition-all duration-300 group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+              >
+                <div className="text-6xl mb-4">{feature.icon}</div>
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-primary-500 transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 leading-relaxed mb-4">{feature.description}</p>
+                <div className="text-primary-500 font-semibold text-sm">{feature.result}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div 
+            className="mt-16 text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-lg text-gray-400 mb-6">
+              And that's just scratching the surface. 50+ features designed to make you money.
+            </p>
+            <button className="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-lg hover:bg-white/10 hover:border-primary-600/50 transition-all">
+              See All Features →
+            </button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Real Results Section */}
+      <section className="py-24 bg-black">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              Real Businesses. <span className="text-primary-600">Real Results</span>.
+            </h2>
+            <p className="text-xl text-gray-400">
+              Don't take our word for it. Here's what happens when you use Nyota.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {[
+              {
+                industry: '🎓 University Admissions',
+                company: 'International University of East Africa',
+                problem: '"We were getting 1,000+ inquiries per month from Facebook ads. Most went unanswered for days. We were losing students to faster competitors."',
+                solution: 'Nyota captured every inquiry automatically. Auto-replied via WhatsApp in under 1 minute. Sent follow-up reminders about missing documents.',
+                results: [
+                  '40% faster response time',
+                  '25% higher enrollment rate',
+                  '$120K additional revenue in first semester',
+                ]
+              },
+              {
+                industry: '🏠 Real Estate Agency',
+                company: 'Prime Properties Kenya',
+                problem: '"Our agents were managing leads in Excel sheets. Leads fell through cracks. We didn\'t know which properties each buyer was interested in."',
+                solution: 'Nyota tracked every buyer preference. Auto-notified agents when new properties matched criteria. WhatsApp property tours with photos.',
+                results: [
+                  'Agents handle 3x more clients',
+                  '60% reduction in lost leads',
+                  'Sales increased by 45% in 6 months',
+                ]
+              },
+              {
+                industry: '🚗 Car Dealership',
+                company: 'AutoMax Motors Uganda',
+                problem: '"People would test drive a car and we\'d never follow up properly. Lost so many deals because we forgot to call back."',
+                solution: 'Nyota automatically scheduled follow-ups 2 days after test drives. Sent financing options via WhatsApp. Tracked every interaction.',
+                results: [
+                  '30% more test drives converted',
+                  'Average deal closed 5 days faster',
+                  '$200K extra revenue per quarter',
+                ]
+              },
+              {
+                industry: '💼 B2B Consulting Firm',
+                company: 'TechConsult Partners (USA)',
+                problem: '"We were paying $450/month for Salesforce. Setup took 4 months. Team hated using it. Too complicated for our needs."',
+                solution: 'Switched to Nyota in 1 afternoon. Same features they needed. Simpler interface. Saved $3,960/year.',
+                results: [
+                  'Saved $330/month on CRM costs',
+                  'Team actually uses it daily now',
+                  '20% shorter sales cycles',
+                ]
+              },
+            ].map((story, idx) => (
+              <motion.div
+                key={idx}
+                className="p-8 bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-2xl hover:border-primary-600/50 transition-all group"
+                initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <div className="text-4xl mb-4">{story.industry.split(' ')[0]}</div>
+                <h3 className="text-2xl font-bold text-white mb-2">{story.industry.substring(3)}</h3>
+                <p className="text-gray-500 text-sm mb-6">{story.company}</p>
+
+                <div className="mb-6">
+                  <h4 className="text-red-400 font-semibold mb-2">❌ The Problem:</h4>
+                  <p className="text-gray-400 italic">{story.problem}</p>
+                </div>
+
+                <div className="mb-6">
+                  <h4 className="text-blue-400 font-semibold mb-2">💡 The Solution:</h4>
+                  <p className="text-gray-400">{story.solution}</p>
+                </div>
+
+                <div>
+                  <h4 className="text-green-400 font-semibold mb-3">✓ The Results:</h4>
+                  <ul className="space-y-2">
+                    {story.results.map((result, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="text-primary-500 mt-1">↗</span>
+                        <span className="text-gray-300">{result}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Comparison - Show The Savings */}
+      <section className="py-24 bg-gradient-to-b from-black to-red-950/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              Stop Overpaying For <span className="text-primary-600">Basic Features</span>
+            </h2>
+            <p className="text-xl text-gray-400">
+              Same power. 80% less cost. No hidden fees. No consultant required.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="overflow-x-auto"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <table className="w-full border border-white/10 rounded-2xl overflow-hidden">
+              <thead className="bg-white/5">
+                <tr>
+                  <th className="px-6 py-4 text-left text-gray-400 font-semibold">Feature</th>
+                  <th className="px-6 py-4 text-center">
+                    <div className="text-primary-500 font-bold text-2xl">Nyota</div>
+                    <div className="text-sm text-gray-400 mt-1">$15/mo</div>
+                  </th>
+                  <th className="px-6 py-4 text-center text-gray-400">
+                    <div className="font-semibold text-lg">Salesforce</div>
+                    <div className="text-sm mt-1">$300/mo</div>
+                  </th>
+                  <th className="px-6 py-4 text-center text-gray-400">
+                    <div className="font-semibold text-lg">HubSpot</div>
+                    <div className="text-sm mt-1">$90/mo</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { feature: 'WhatsApp Integration', nyota: '✓ Native', salesforce: '✗ $50/mo extra', hubspot: '✗ Not available' },
+                  { feature: 'Setup Time', nyota: '✓ 30 minutes', salesforce: '✗ 2-6 months', hubspot: '✗ 2-4 weeks' },
+                  { feature: 'Custom Workflows', nyota: '✓ Unlimited', salesforce: '✓ Yes', hubspot: '✓ Limited' },
+                  { feature: 'Mobile Money Payments', nyota: '✓ M-Pesa, MTN, Airtel', salesforce: '✗ Credit card only', hubspot: '✗ Credit card only' },
+                  { feature: 'Auto Follow-Ups', nyota: '✓ Included', salesforce: '✓ $50/mo extra', hubspot: '✓ $45/mo extra' },
+                  { feature: 'Email Campaigns', nyota: '✓ Unlimited', salesforce: '✓ Limited', hubspot: '✓ 2,000/mo' },
+                  { feature: 'Support', nyota: '✓ 24/7 Chat', salesforce: '✓ Email only', hubspot: '✓ Email only' },
+                  { feature: 'Annual Cost', nyota: '$180', salesforce: '$3,600', hubspot: '$1,080' },
+                ].map((row, idx) => (
+                  <tr key={idx} className="border-t border-white/10 hover:bg-white/5 transition-colors">
+                    <td className="px-6 py-4 text-white font-semibold">{row.feature}</td>
+                    <td className="px-6 py-4 text-center text-primary-500 font-bold">{row.nyota}</td>
+                    <td className="px-6 py-4 text-center text-gray-400">{row.salesforce}</td>
+                    <td className="px-6 py-4 text-center text-gray-400">{row.hubspot}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </motion.div>
+
+          <motion.div 
+            className="mt-12 text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-block p-6 bg-primary-600/10 border border-primary-600/30 rounded-xl">
+              <p className="text-2xl font-bold text-white mb-2">
+                Save <span className="text-primary-500">$3,420/year</span> vs Salesforce
+              </p>
+              <p className="text-gray-400">That's enough to hire another salesperson. Or run 10 marketing campaigns.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-32 bg-gradient-to-b from-black via-red-950/20 to-black">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              Ready to Stop Losing Money?
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-primary-700">
+                Start Your Free Trial Now
+              </span>
+            </h2>
+            
+            <p className="text-xl text-gray-300 mb-12">
+              {currentContent.ctaText}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <button className="group px-10 py-5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-bold text-xl hover:scale-105 transition-all shadow-2xl shadow-primary-600/50">
+                Start Free Trial - 50 Leads FREE
+                <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+              <button className="px-10 py-5 bg-white/5 border-2 border-white/10 text-white rounded-lg font-bold text-xl hover:bg-white/10 transition-all">
+                <span className="mr-2">▶</span> Watch 2-Min Demo
+              </button>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-6 text-gray-400 text-sm mb-8">
+              <div className="flex items-center gap-2">
+                <span className="text-green-500 text-lg">✓</span>
+                <span>First 50 leads FREE forever</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-green-500 text-lg">✓</span>
+                <span>Setup in 30 minutes</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-green-500 text-lg">✓</span>
+                <span>No credit card required</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-green-500 text-lg">✓</span>
+                <span>Cancel anytime</span>
+              </div>
+            </div>
+
+            <div className="p-6 bg-white/5 border border-white/10 rounded-xl max-w-2xl mx-auto">
+              <p className="text-gray-300 text-lg">
+                <span className="text-primary-500 font-bold">423 businesses</span> started their free trial this week.
+                <br />
+                Join them and stop losing customers to slow follow-ups.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <footer className="py-12 bg-black border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+            <div className="text-center md:text-left">
+              <h3 className="text-2xl font-bold text-white mb-2">Nyota AI Fusion</h3>
+              <p className="text-gray-400">Your workflow. Your rules. Your success.</p>
+              <div className="flex gap-3 mt-3 justify-center md:justify-start">
+                <span className="text-2xl">🌍</span>
+                <span className="text-2xl">🇺🇸</span>
+                <span className="text-2xl">��🇺</span>
+                <span className="text-2xl">🌏</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 py-8 border-t border-white/10">
+            <div>
+              <h4 className="text-white font-semibold mb-3">🌍 Africa</h4>
+              <p className="text-sm text-gray-500">Kenya • Uganda • Nigeria • Tanzania • Ghana</p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3">🇺🇸 Americas</h4>
+              <p className="text-sm text-gray-500">United States • Canada • Mexico • Brazil</p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3">🌐 Global</h4>
+              <p className="text-sm text-gray-500">150+ countries supported worldwide</p>
+            </div>
+          </div>
+          
+          <div className="pt-8 border-t border-white/10 text-center text-gray-500 text-sm">
+            <p>© 2025 Nyota AI Fusion. Built with passion for businesses everywhere.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
