@@ -174,7 +174,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                   <p className="text-gray-700 mb-2"><strong>Email:</strong> contact@nyotainnovation.com</p>
-                  <p className="text-gray-700 mb-2"><strong>Phone:</strong> +256 709 490 920</p>
+                  <p className="text-gray-700 mb-2"><strong>Phone:</strong> <a href="tel:+256749117690" className="hover:text-burgundy-700 transition-colors">+256 749 117 690</a></p>
                   <p className="text-gray-700"><strong>Address:</strong> Kampala, Uganda</p>
                 </div>
               </section>

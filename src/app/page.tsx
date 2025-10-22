@@ -3,132 +3,74 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { TypewriterText } from '@/components/common/TypewriterText';
 import { PhoneMockup } from '@/components/features/PhoneMockup';
+import KeyFeaturesShowcase from '@/components/features/KeyFeaturesShowcase';
+import IndustryUseCases from '@/components/features/IndustryUseCases';
 
 export default function Home() {
-  const [expandedFAQ, setExpandedFAQ] = useState([0, 1, 2]);
-  const { scrollYProgress } = useScroll();
-  
-  // Scroll progress values for future parallax effects
-  useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-
-
-
-  const toggleFAQ = (index: number) => {
-    setExpandedFAQ(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    );
-  };
-
-  const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: 'easeOut' },
-  };
-
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
   const scaleOnHover = {
     whileHover: { scale: 1.05, transition: { duration: 0.2 } },
     whileTap: { scale: 0.95 },
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-white text-midnight-cosmos">
       {/* Navigation */}
       <motion.nav
-        initial={{ opacity: 0, y: -50 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="fixed top-0 w-full bg-white/95 backdrop-blur-xl z-50 border-b border-gray-100 shadow-sm"
+        transition={{ duration: 0.5 }}
+        className="fixed top-0 w-full bg-white/98 backdrop-blur-sm z-50 border-b border-gray-100"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center">
-              <motion.div
-                className="flex items-center space-x-2 sm:space-x-3"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <motion.div
-                  whileHover={{ rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Image
-                    src="/logo.png"
-                    alt="Nyota Logo"
-                    width={120}
-                    height={40}
-                    className="w-auto h-8 sm:h-10"
-                    priority
-                    unoptimized
-                  />
-                </motion.div>
-              </motion.div>
+              <Image
+                src="/logo.png"
+                alt="Nyota Logo"
+                width={140}
+                height={45}
+                className="w-auto h-10"
+                priority
+                unoptimized
+              />
             </Link>
+            
             <div className="hidden md:flex items-center space-x-8">
-              <Link
-                href="#features"
-                className="text-gray-600 hover:text-burgundy-700 transition-colors cursor-pointer font-medium"
-              >
-                Features
+              <Link href="#solutions" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
+                Solutions
               </Link>
-              <Link
-                href="#industries"
-                className="text-gray-600 hover:text-burgundy-700 transition-colors cursor-pointer font-medium"
-              >
-                Built for Your Team
+              <Link href="#pricing" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
+                Pricing
               </Link>
-              <Link
-                href="#case-studies"
-                className="text-gray-600 hover:text-burgundy-700 transition-colors cursor-pointer font-medium"
-              >
-                Case Studies
+              <Link href="#resources" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
+                Resources
               </Link>
-              <Link
-                href="#about"
-                className="text-gray-600 hover:text-burgundy-700 transition-colors cursor-pointer font-medium"
-              >
-                About
-              </Link>
-              <Link
-                href="#contact"
-                className="text-gray-600 hover:text-burgundy-700 transition-colors cursor-pointer font-medium"
-              >
-                Contact
+              <a href="tel:+256749117690" className="text-graphite-gray hover:text-royal-azure transition-colors">+256 749 117 690</a>
+              <Link href="#login" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
+                Log in
               </Link>
               <motion.a
-                {...scaleOnHover}
-                href="https://wa.me/256709490920?text=Hi%20Nyota!%20I'd%20like%20to%20book%20a%2015-minute%20demo%20to%20learn%20how%20you%20can%20help%20my%20business.%20Looking%20forward%20to%20connecting!"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-gradient-to-r from-burgundy-800 to-burgundy-700 hover:from-burgundy-700 hover:to-burgundy-800 text-white px-6 py-2.5 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap cursor-pointer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://wa.me/256709490920"
+                className="bg-sunlit-amber hover:bg-[#FFD166] text-midnight-cosmos px-6 py-3 rounded-full font-bold transition-all shadow-md hover:shadow-lg"
               >
-                Book a Demo
+                Book demo
               </motion.a>
             </div>
-            {/* Mobile Menu Button */}
+
+            {/* Mobile menu button */}
             <div className="md:hidden">
               <motion.a
-                {...scaleOnHover}
-                href="https://wa.me/256709490920?text=Hi%20Nyota!%20I'd%20like%20to%20book%20a%2015-minute%20demo%20to%20learn%20how%20you%20can%20help%20my%20business.%20Looking%20forward%20to%20connecting!"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-gradient-to-r from-burgundy-800 to-burgundy-700 text-white px-4 py-2 rounded-full font-semibold text-sm whitespace-nowrap cursor-pointer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://wa.me/256709490920"
+                className="bg-sunlit-amber text-midnight-cosmos px-5 py-2.5 rounded-full font-bold text-sm"
               >
-                Book Demo
+                Book demo
               </motion.a>
             </div>
           </div>
@@ -136,1422 +78,704 @@ export default function Home() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50 pt-16 sm:pt-20">
-        {/* Clean Background */}
-        <div className="absolute inset-0">
-          <div
-            className="absolute inset-0 opacity-[0.02]"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgb(0,0,0) 1px, transparent 0)`,
-              backgroundSize: '40px 40px',
-            }}
-          ></div>
-
-          {/* Subtle Gradient Orbs - Hidden on mobile */}
-          <motion.div
-            className="hidden sm:block absolute top-10 sm:top-20 left-10 sm:left-20 w-48 h-48 sm:w-96 sm:h-96 bg-gradient-to-r from-burgundy-800/10 to-orange-500/10 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="hidden sm:block absolute top-20 sm:top-40 right-10 sm:right-20 w-40 h-40 sm:w-80 sm:h-80 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
-            animate={{
-              scale: [1.2, 0.8, 1.2],
-              opacity: [0.4, 0.6, 0.4],
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          />
+      <section className="relative pt-24 pb-20 sm:pt-40 sm:pb-28 bg-white overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Circular gradient background - yellow/amber */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] lg:w-[900px] lg:h-[900px] bg-gradient-to-r from-sunlit-amber/5 to-sunlit-amber/10 rounded-full blur-3xl"></div>
         </div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Centered Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-4xl sm:text-5xl lg:text-6xl mb-8 leading-tight"
+              style={{ 
+                fontFamily: '"Ananda Black", "Arial Black", sans-serif',
+                fontWeight: 900,
+                textRendering: 'optimizeLegibility',
+                WebkitFontSmoothing: 'antialiased',
+              }}
+            >
+              <span className="text-midnight-cosmos">Your CRM, </span>
+              <span className="text-sunlit-amber">your way.</span>
+              <br />
+              <span className="text-midnight-cosmos">Built around how </span>
+              <span className="text-royal-azure">you sell</span>
+            </motion.h1>
 
-        {/* Main Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            {/* Left Content */}
+            {/* Subheadline */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-lg sm:text-xl text-graphite-gray mb-12 leading-relaxed max-w-2xl mx-auto"
+            >
+              From first inquiry to final conversion capture leads from WhatsApp, Email & SMS, track every interaction, and automate follow-ups with the CRM that adapts to how <strong>your business</strong> actually works.
+            </motion.p>
+
+            {/* CTA Buttons */}
             <motion.div
-              className="text-center lg:text-left order-2 lg:order-1"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-6"
+            >
+              <motion.a
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://wa.me/256709490920"
+                className="bg-sunlit-amber hover:bg-[#FFD166] text-midnight-cosmos px-10 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-xl inline-flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Book a Demo
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="#how-it-works"
+                className="bg-white hover:bg-gray-50 text-midnight-cosmos px-10 py-4 rounded-full font-bold text-lg transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center border-2 border-gray-200"
+              >
+                See How It Works
+              </motion.a>
+            </motion.div>
+
+            {/* Contact Info */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="text-graphite-gray text-sm mb-8 flex items-center justify-center gap-2"
+            >
+              <svg className="w-4 h-4 text-royal-azure" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+              </svg>
+              <span>or call us at <a href="tel:+256749117690" className="font-bold hover:text-royal-azure transition-colors">+256 749 117 690</a></span>
+            </motion.p>
+
+            {/* Trust Badges */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-wrap items-center justify-center gap-6 text-sm text-graphite-gray"
+            >
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-royal-azure" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span>Setup in under 1 hour</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-royal-azure" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span>WhatsApp-First CRM</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-royal-azure" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span>Built for Africa</span>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Hero Image with Floating Chat Bubbles */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative mt-12 sm:mt-16"
+          >
+            <Image
+              src="/hero.png"
+              alt="ChatBot helping customers"
+              width={800}
+              height={600}
+              className="w-full h-auto rounded-2xl shadow-2xl"
+              unoptimized
+            />
+
+            {/* University Admission Notification - Top Left */}
+            <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+              className="hidden lg:block absolute top-6 -left-20 lg:-left-28 bg-white rounded-2xl shadow-xl px-5 py-3 w-[260px] lg:w-[300px] xl:w-[320px] border border-gray-100"
             >
-              {/* Trust Badge - Hidden on mobile */}
+              <div className="flex items-start gap-2.5">
+                <div className="w-9 h-9 bg-gradient-to-br from-royal-azure to-royal-azure/80 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-base">🎓</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-xs font-semibold text-midnight-cosmos tracking-tight">International University</p>
+                    <span className="text-[11px] text-gray-400">Just now</span>
+                  </div>
+                  <p className="text-sm text-graphite-gray leading-snug">
+                    Congratulations! Your application has been <span className="font-semibold text-royal-azure">accepted</span>
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Real Estate Lead Notification - Right Side */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 1.5 }}
+              className="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-16 lg:-right-20 bg-white rounded-2xl shadow-xl px-5 py-3 w-[260px] lg:w-[300px] xl:w-[320px] border border-gray-100"
+            >
+              <div className="flex items-start gap-2.5">
+                <div className="w-9 h-9 bg-gradient-to-br from-sunlit-amber to-sunlit-amber/80 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-base">🏠</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-xs font-semibold text-midnight-cosmos tracking-tight">Prime Properties Ltd</p>
+                    <span className="text-[11px] text-gray-400">2m ago</span>
+                  </div>
+                  <p className="text-sm text-graphite-gray leading-snug">
+                    3 new properties match your search criteria
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* WhatsApp Business Message - Bottom Left */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.8 }}
+              className="hidden lg:block absolute bottom-6 -left-20 lg:-left-28 bg-white rounded-2xl shadow-xl px-5 py-3 w-[260px] lg:w-[300px] xl:w-[320px] border border-gray-100"
+            >
+              <div className="flex items-start gap-2.5">
+                <div className="w-9 h-9 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-xs font-semibold text-midnight-cosmos tracking-tight">Auto Dealership</p>
+                    <span className="text-[11px] text-gray-400">5m ago</span>
+                  </div>
+                  <p className="text-sm text-graphite-gray leading-snug">
+                    Your test drive is scheduled for tomorrow at 2 PM
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Mobile stacked chat bubbles */}
+            <div className="mt-10 flex flex-col gap-3 lg:hidden">
               <motion.div
-                className="hidden sm:inline-flex items-center px-3 sm:px-4 py-2 bg-burgundy-50 border border-burgundy-200 rounded-full mb-6 sm:mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-white rounded-2xl shadow-lg px-4 py-3 border border-gray-100 max-w-sm w-full mx-auto"
+              >
+                <div className="flex items-start gap-2.5">
+                  <div className="w-8 h-8 bg-gradient-to-br from-royal-azure to-royal-azure/80 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-sm">🎓</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <p className="text-xs font-semibold text-midnight-cosmos tracking-tight">International University</p>
+                      <span className="text-[10px] text-gray-400">Just now</span>
+                    </div>
+                    <p className="text-xs text-graphite-gray leading-snug">
+                      Congratulations! Your application has been <span className="font-semibold text-royal-azure">accepted</span>
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-white rounded-2xl shadow-lg px-4 py-3 border border-gray-100 max-w-sm w-full mx-auto"
+              >
+                <div className="flex items-start gap-2.5">
+                  <div className="w-8 h-8 bg-gradient-to-br from-sunlit-amber to-sunlit-amber/80 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-sm">🏠</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <p className="text-xs font-semibold text-midnight-cosmos tracking-tight">Prime Properties Ltd</p>
+                      <span className="text-[10px] text-gray-400">2m ago</span>
+                    </div>
+                    <p className="text-xs text-graphite-gray leading-snug">
+                      3 new properties match your search criteria
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
+                className="bg-white rounded-2xl shadow-lg px-4 py-3 border border-gray-100 max-w-sm w-full mx-auto"
               >
-                <div className="w-2 h-2 bg-burgundy-500 rounded-full mr-2 sm:mr-3 animate-pulse"></div>
-                <span className="text-burgundy-800 text-xs sm:text-sm font-medium">
-                  Trusted by 180+ universities, banks & growth teams globally
-                </span>
-              </motion.div>
-
-              <motion.h1
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <span className="text-gray-900">Turn Inquiries Into</span>
-                <br />
-                <motion.span
-                  className="bg-gradient-to-r from-burgundy-800 via-burgundy-800 to-orange-500 bg-clip-text text-transparent inline-block"
-                  animate={{
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                  style={{
-                    backgroundSize: '200% auto',
-                  }}
-                >
-                  <TypewriterText 
-                    text="Income—Automatically"
-                    delay={800}
-                    speed={80}
-                  />
-                </motion.span>
-              </motion.h1>
-
-              <motion.p
-                className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                Unify <strong>WhatsApp, Email, and SMS</strong>, score intent with AI, and automate timely follow-ups so admissions, banking, and marketing teams convert more leads—fast.
-              </motion.p>
-
-              <motion.div
-                className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8 justify-center lg:justify-start"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1 }}
-              >
-                <motion.a
-                  {...scaleOnHover}
-                  href="https://wa.me/256709490920?text=Hi%20Nyota!%20I'd%20like%20to%20book%20a%2015-minute%20demo%20to%20learn%20how%20you%20can%20help%20my%20business.%20Looking%20forward%20to%20connecting!"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto bg-gradient-to-r from-burgundy-800 to-burgundy-700 hover:from-burgundy-700 hover:to-burgundy-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl whitespace-nowrap cursor-pointer flex items-center justify-center min-h-[48px]"
-                >
-                  <span>Book a 15-Minute Demo</span>
-                  <i className="ri-arrow-right-line ml-2 text-lg sm:text-xl"></i>
-                </motion.a>
-                <motion.a
-                  {...scaleOnHover}
-                  href="https://wa.me/256709490920?text=Hi%20Nyota%2C%20I'd%20like%20a%20demo."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto border-2 border-success-200 hover:border-success-400 bg-success-50 hover:bg-success-100 text-success-700 hover:text-success-800 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300 hover:shadow-lg whitespace-nowrap cursor-pointer flex items-center justify-center min-h-[48px]"
-                >
-                  <i className="ri-whatsapp-line mr-2 text-lg sm:text-xl"></i>
-                  <span>Chat on WhatsApp</span>
-                </motion.a>
-              </motion.div>
-
-              {/* Optional SMS link */}
-              <motion.div
-                className="text-center lg:text-left mb-6 sm:mb-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1.1 }}
-              >
-                <a
-                  href="sms:+1XXXXXXXXXX"
-                  className="text-gray-500 text-sm hover:text-gray-700 transition-colors cursor-pointer"
-                >
-                  Or text us
-                </a>
-              </motion.div>
-
-              {/* Trust Indicators - Hidden on mobile */}
-              <motion.div
-                className="hidden sm:flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-8 text-sm text-gray-500"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-              >
-                <div className="flex items-center">
-                  <div className="flex -space-x-2 mr-3">
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-trust-400 to-trust-500 rounded-full border-2 border-white"></div>
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-success-400 to-success-500 rounded-full border-2 border-white"></div>
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full border-2 border-white"></div>
+                <div className="flex items-start gap-2.5">
+                  <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
                   </div>
-                  <span className="text-xs sm:text-sm">99.9% uptime</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="flex text-amber-400 mr-2">
-                    {[...Array(5)].map((_, i) => (
-                      <i key={i} className="ri-star-fill text-xs sm:text-sm"></i>
-                    ))}
-                  </div>
-                  <span className="text-xs sm:text-sm">SOC-Aligned Security</span>
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Right Visual - Product Dashboard */}
-            <motion.div
-              className="relative order-1 lg:order-2 mt-4 sm:mt-8 lg:mt-0"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-            >
-              {/* Phone Mockup Component */}
-              <PhoneMockup />
-
-              {/* Floating Stats - Adjusted positions for phone */}
-              <motion.div
-                className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-white rounded-xl shadow-xl p-2 sm:p-4 border border-gray-100 z-30"
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-success-400 to-success-500 rounded-full flex items-center justify-center">
-                    <i className="ri-line-chart-line text-white text-xs sm:text-sm"></i>
-                  </div>
-                  <div className="hidden sm:block">
-                    <div className="text-sm font-semibold text-amber-600">+35%</div>
-                    <div className="text-xs text-gray-500">Conversions</div>
-                  </div>
-                  <div className="sm:hidden">
-                    <div className="text-xs font-semibold text-amber-600">+35%</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <p className="text-xs font-semibold text-midnight-cosmos tracking-tight">Auto Dealership</p>
+                      <span className="text-[10px] text-gray-400">5m ago</span>
+                    </div>
+                    <p className="text-xs text-graphite-gray leading-snug">
+                      Your test drive is scheduled for tomorrow at 2 PM
+                    </p>
                   </div>
                 </div>
               </motion.div>
-
-              <motion.div
-                className="absolute top-1/2 -right-3 sm:-right-4 bg-white rounded-xl shadow-xl p-2 sm:p-4 border border-gray-100 z-30"
-                animate={{ x: [-5, 5, -5] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <div className="text-center">
-                  <div className="text-sm sm:text-lg font-bold text-burgundy-700">180+</div>
-                  <div className="text-xs text-gray-500">Clients</div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator - Hidden on mobile */}
-        <motion.div
-          className="hidden sm:block absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-gray-300 rounded-full flex justify-center">
-            <motion.div
-              className="w-1 h-2 sm:h-3 bg-gray-400 rounded-full mt-1 sm:mt-2"
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Early Credibility Strip - Mobile Only */}
-      <section className="sm:hidden py-6 bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            className="grid grid-cols-2 gap-4 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div>
-              <div className="text-lg font-bold text-burgundy-700">180+</div>
-              <div className="text-xs text-gray-500">Clients</div>
-            </div>
-            <div>
-              <div className="text-lg font-bold text-blue-600">25</div>
-              <div className="text-xs text-gray-500">Countries</div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Logo Strip */}
-      <section className="py-8 sm:py-12 bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      {/* Social Proof Section */}
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-royal-azure/10 via-royal-azure/15 to-royal-azure/5 border-y border-royal-azure/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
           <motion.div
-            className="text-center mb-6 sm:mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="text-center mb-10"
           >
-            <p className="text-gray-500 text-sm font-medium">Trusted by leading global institutions</p>
-          </motion.div>
-          
-          <motion.div
-            className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 opacity-60"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 0.6, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="text-gray-400 font-semibold text-sm sm:text-lg" title="International University of East Africa">International University of East Africa</div>
-            <div className="text-gray-400 font-semibold text-sm sm:text-lg" title="Bora Technology">Bora Technology</div>
-            <div className="text-gray-400 font-semibold text-sm sm:text-lg" title="Université de la Paix de la RDC">Université de la Paix de la RDC</div>
-          </motion.div>
-        </div>
-      </section>
+            <p className="text-midnight-cosmos font-semibold text-sm sm:text-base tracking-wide uppercase mb-10">Trusted by Leading African Businesses</p>
+            
+            {/* Client Logos */}
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 lg:gap-12 mb-12">
+              {/* International University of East Africa */}
+              <motion.div
+                whileHover={{ scale: 1.05, y: -4 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center justify-center"
+              >
+                <div className="bg-white px-6 py-4 rounded-xl shadow-md border-2 border-royal-azure/20 hover:shadow-lg hover:border-royal-azure/40 transition-all backdrop-blur-sm">
+                  <p className="text-midnight-cosmos font-bold text-base sm:text-lg text-center leading-tight">
+                    International University<br />of East Africa
+                  </p>
+                </div>
+              </motion.div>
 
-      {/* Channels & Integrations Strip */}
-      <section className="py-6 sm:py-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              {/* Bora Technology */}
+              <motion.div
+                whileHover={{ scale: 1.05, y: -4 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center justify-center"
+              >
+                <div className="bg-white px-6 py-4 rounded-xl shadow-md border-2 border-royal-azure/20 hover:shadow-lg hover:border-royal-azure/40 transition-all backdrop-blur-sm">
+                  <p className="text-midnight-cosmos font-bold text-base sm:text-lg text-center">
+                    Bora Technology
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Bokeseni SARL */}
+              <motion.div
+                whileHover={{ scale: 1.05, y: -4 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center justify-center"
+              >
+                <div className="bg-white px-6 py-4 rounded-xl shadow-md border-2 border-royal-azure/20 hover:shadow-lg hover:border-royal-azure/40 transition-all backdrop-blur-sm">
+                  <p className="text-midnight-cosmos font-bold text-base sm:text-lg text-center">
+                    Bokeseni SARL
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Stats Grid */}
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-center"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto"
           >
-            <div>
-              <h3 className="text-sm font-semibold text-gray-600 mb-3">CHANNELS</h3>
-              <div className="flex justify-center items-center space-x-4 sm:space-x-6">
-                <span className="text-gray-700 font-medium text-sm sm:text-base">WhatsApp</span>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-700 font-medium text-sm sm:text-base">Email</span>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-700 font-medium text-sm sm:text-base">SMS</span>
+            {/* Stat 1 */}
+            <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-royal-azure/20 shadow-md hover:shadow-lg hover:border-royal-azure/30 transition-all">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-royal-azure to-royal-azure/80 rounded-xl mb-4 shadow-md">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
               </div>
+              <h3 className="text-3xl sm:text-4xl font-bold text-midnight-cosmos mb-2">50K+</h3>
+              <p className="text-graphite-gray text-sm font-medium">Leads Managed</p>
             </div>
-            <div>
-              <h3 className="text-sm font-semibold text-gray-600 mb-3">INTEGRATIONS</h3>
-              <div className="flex justify-center items-center space-x-3 sm:space-x-6 text-sm sm:text-base">
-                <span className="text-gray-700 font-medium">Meta Ads</span>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-700 font-medium">Google Ads</span>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-700 font-medium">Web Forms</span>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-700 font-medium">CSV/API</span>
+
+            {/* Stat 2 */}
+            <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-royal-azure/20 shadow-md hover:shadow-lg hover:border-royal-azure/30 transition-all">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-sunlit-amber to-sunlit-amber/90 rounded-xl mb-4 shadow-md">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
+              <h3 className="text-3xl sm:text-4xl font-bold text-midnight-cosmos mb-2">10x</h3>
+              <p className="text-graphite-gray text-sm font-medium">Faster Response Times</p>
+            </div>
+
+            {/* Stat 3 */}
+            <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-royal-azure/20 shadow-md hover:shadow-lg hover:border-royal-azure/30 transition-all">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl mb-4 shadow-md">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-bold text-midnight-cosmos mb-2">35%</h3>
+              <p className="text-graphite-gray text-sm font-medium">Increase in Conversions</p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Built for Your Team */}
-      <section id="industries" className="py-16 sm:py-24 bg-gradient-to-r from-white to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      {/* Problem Statement Section */}
+      <section className="py-20 sm:py-32 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
           <motion.div
-            className="text-center mb-12 sm:mb-20"
-            initial="initial"
-            whileInView="animate"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            variants={fadeInUp}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16 sm:mb-20"
           >
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-8 bg-gradient-to-r from-gray-900 via-burgundy-800 to-gray-900 bg-clip-text text-transparent"
-              whileInView={{ scale: [0.9, 1] }}
-              transition={{ duration: 0.8 }}
-            >
-              Built for Your Team
-            </motion.h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Purpose-built solutions for universities, banks, and growth teams to convert more leads faster.
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-cosmos mb-6">
+              No more manual tasks.
+              <br />
+              <span className="text-sunlit-amber">Just automated business growth.</span>
+            </h2>
+            <p className="text-xl sm:text-2xl text-graphite-gray max-w-3xl mx-auto">
+              If you can draw it out, you can automate it on Nyota and start closing more deals.
             </p>
           </motion.div>
 
+          {/* Main Visual - Workflow Diagram */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={staggerContainer}
-          >
-            {[
-              {
-                title: 'Universities & Colleges',
-                badge: 'ADMISSIONS',
-                description: 'Boost inquiry-to-application and admit-to-enroll with AI-timed nudges.',
-                outcomes: ['+24% app starts', '+15% show-up'],
-                channels: 'Email/SMS (U.S.), WhatsApp/Email (Global)',
-                image: 'https://readdy.ai/api/search-image?query=Modern%20university%20campus%20with%20diverse%20students%20walking%20and%20studying%2C%20contemporary%20higher%20education%20environment%20with%20vibrant%20architecture%20and%20natural%20lighting%2C%20global%20university%20setting%20showcasing%20academic%20excellence%20and%20student%20life%2C%20high-quality%20photography&width=600&height=300&seq=global-university-campus-001&orientation=landscape',
-                gradient: 'from-blue-500 to-purple-600',
-                link: '#case-study-education'
-              },
-              {
-                title: 'Banking & Financial Services',
-                badge: 'ONBOARDING',
-                description: 'Accelerate onboarding and cross-sell with compliant journeys.',
-                outcomes: ['Faster account opens', 'Higher deposits'],
-                channels: 'Email/SMS/WhatsApp',
-                image: 'https://readdy.ai/api/search-image?query=Modern%20banking%20institution%20interior%20with%20professional%20staff%20serving%20diverse%20customers%2C%20contemporary%20financial%20services%20environment%20with%20clean%20design%20and%20natural%20lighting%2C%20global%20banking%20setting%20showing%20customer%20service%20excellence%2C%20high-quality%20photography&width=600&height=300&seq=global-bank-interior-001&orientation=landscape',
-                gradient: 'from-green-500 to-teal-600',
-                link: '#case-study-banking'
-              },
-              {
-                title: 'Performance Marketing Teams',
-                badge: 'GROWTH',
-                description: 'Turn paid leads into pipeline with instant scoring + auto follow-ups.',
-                outcomes: ['Lower CPL waste', 'Faster speed-to-lead', 'Better ROAS'],
-                channels: 'Meta Ads • Google Ads • CSV/API',
-                image: 'https://readdy.ai/api/search-image?query=Modern%20marketing%20team%20office%20with%20professionals%20analyzing%20performance%20data%20on%20multiple%20screens%2C%20contemporary%20digital%20marketing%20workspace%20with%20analytics%20dashboards%20and%20natural%20lighting%2C%20global%20marketing%20agency%20environment%20showing%20data-driven%20growth%20strategies%2C%20high-quality%20photography&width=600&height=300&seq=global-marketing-office-001&orientation=landscape',
-                gradient: 'from-burgundy-800 to-orange-600',
-                link: '#case-study-marketing'
-              },
-            ].map((story, index) => (
-              <motion.div
-                key={index}
-                className="group bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 hover:border-burgundy-300 transition-all duration-300 shadow-lg hover:shadow-2xl cursor-pointer h-auto"
-                variants={fadeInUp}
-                whileHover={{ scale: 1.02, y: -5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="relative overflow-hidden rounded-xl mb-4 sm:mb-6">
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-r ${story.gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}
-                  />
-                  <Image
-                    src={story.image}
-                    alt={`${story.title} - ${story.description}`}
-                    width={400}
-                    height={160}
-                    className="w-full h-32 sm:h-40 object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                    unoptimized
-                  />
-                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                    <span className={`inline-flex items-center px-2 py-1 sm:px-3 sm:py-1 rounded-full bg-gradient-to-r ${story.gradient} text-white text-xs font-bold uppercase tracking-wide`}>
-                      {story.badge}
-                    </span>
-                  </div>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 group-hover:text-burgundy-700 transition-colors duration-300 line-clamp-2">
-                  {story.title}
-                </h3>
-                <p className="text-gray-600 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base line-clamp-2">
-                  {story.description}
-                </p>
-                
-                {/* Outcomes - Compact bullets */}
-                <div className="mb-3 sm:mb-4">
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-700 mb-2">OUTCOMES:</h4>
-                  <div className="flex flex-wrap gap-1 sm:gap-2">
-                    {story.outcomes.map((outcome, idx) => (
-                      <span key={idx} className="inline-flex items-center px-2 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">
-                        {outcome}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Channels - Single chip row */}
-                <div className="mb-4 sm:mb-6">
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-700 mb-2">CHANNELS:</h4>
-                  <div className="bg-gray-50 rounded-full px-3 py-1 inline-block">
-                    <p className="text-gray-600 text-xs sm:text-sm whitespace-nowrap">{story.channels}</p>
-                  </div>
-                </div>
-
-                <Link
-                  href={story.link}
-                  className="inline-flex items-center text-coral-600 hover:text-coral-700 font-semibold transition-colors duration-300 text-sm group"
-                >
-                  Learn More
-                  <i className="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Comparison Table Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <motion.div
-            className="text-center mb-12 sm:mb-20"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-8 bg-gradient-to-r from-gray-900 via-burgundy-800 to-gray-900 bg-clip-text text-transparent"
-              whileInView={{ scale: [0.9, 1] }}
-              transition={{ duration: 0.8 }}
-            >
-              Why Choose Nyota Over Traditional Tools?
-            </motion.h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Break free from expensive, complicated systems that slow you down.
-            </p>
-          </motion.div>
-
-          {/* Desktop Table */}
-          <motion.div
-            className="hidden sm:block bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden mb-8 sm:mb-12"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="relative"
           >
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-lg font-semibold text-gray-900">Feature</th>
-                    <th className="px-6 py-4 text-center text-lg font-semibold text-gray-600">Traditional Tools</th>
-                    <th className="px-6 py-4 text-center text-lg font-semibold text-burgundy-700">Nyota</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {[
-                    {
-                      feature: 'Channels',
-                      traditional: 'Siloed',
-                      nyota: 'WhatsApp • Email • SMS in one inbox',
-                      traditionalIcon: 'ri-close-line',
-                      nyotaIcon: 'ri-check-line'
-                    },
-                    {
-                      feature: 'Speed-to-Lead',
-                      traditional: 'Manual',
-                      nyota: 'Instant AI-timed outreach',
-                      traditionalIcon: 'ri-close-line',
-                      nyotaIcon: 'ri-check-line'
-                    },
-                    {
-                      feature: 'Lead Scoring',
-                      traditional: 'Rules only',
-                      nyota: 'ML intent scoring',
-                      traditionalIcon: 'ri-close-line',
-                      nyotaIcon: 'ri-check-line'
-                    },
-                    {
-                      feature: 'Compliance',
-                      traditional: 'Generic',
-                      nyota: 'FERPA-aware (admissions), SOC-aligned',
-                      traditionalIcon: 'ri-close-line',
-                      nyotaIcon: 'ri-check-line'
-                    },
-                    {
-                      feature: 'Currencies',
-                      traditional: 'USD only',
-                      nyota: 'USD + KES/UGX/RWF/ZAR',
-                      traditionalIcon: 'ri-close-line',
-                      nyotaIcon: 'ri-check-line'
-                    },
-                    {
-                      feature: 'Onboarding',
-                      traditional: 'Weeks',
-                      nyota: '15-min setup • 48h migration',
-                      traditionalIcon: 'ri-close-line',
-                      nyotaIcon: 'ri-check-line'
-                    }
-                  ].map((row, index) => (
-                    <motion.tr
-                      key={index}
-                      className="hover:bg-gray-50 transition-colors duration-200"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <td className="px-6 py-4 font-medium text-gray-900">{row.feature}</td>
-                      <td className="px-6 py-4 text-center">
-                        <div className="flex items-center justify-center space-x-2">
-                          <div className="w-5 h-5 bg-burgundy-500 rounded-full flex items-center justify-center">
-                            <i className={`${row.traditionalIcon} text-white text-xs`}></i>
-                          </div>
-                          <span className="text-gray-600">{row.traditional}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <div className="flex items-center justify-center space-x-2">
-                          <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                            <i className={`${row.nyotaIcon} text-white text-xs`}></i>
-                          </div>
-                          <span className="text-gray-900 font-medium">{row.nyota}</span>
-                        </div>
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
-
-          {/* Mobile Stacked Feature List */}
-          <motion.div
-            className="sm:hidden space-y-4 mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            {[
-              {
-                feature: 'Channels',
-                traditional: 'Siloed',
-                nyota: 'WhatsApp • Email • SMS in one inbox'
-              },
-              {
-                feature: 'Speed-to-Lead',
-                traditional: 'Manual',
-                nyota: 'Instant AI-timed outreach'
-              },
-              {
-                feature: 'Lead Scoring',
-                traditional: 'Rules only',
-                nyota: 'ML intent scoring'
-              },
-              {
-                feature: 'Compliance',
-                traditional: 'Generic',
-                nyota: 'FERPA-aware, SOC-aligned'
-              },
-              {
-                feature: 'Currencies',
-                traditional: 'USD only',
-                nyota: 'USD + KES/UGX/RWF/ZAR'
-              },
-              {
-                feature: 'Onboarding',
-                traditional: 'Weeks',
-                nyota: '15-min setup • 48h migration'
-              }
-            ].map((row, index) => (
-              <motion.div
-                key={index}
-                className="bg-white rounded-2xl p-4 shadow-lg border border-gray-200"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <h3 className="font-semibold text-gray-900 mb-3">{row.feature}</h3>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 bg-burgundy-500 rounded-full flex items-center justify-center">
-                      <i className="ri-close-line text-white text-xs"></i>
-                    </div>
-                    <span className="text-gray-600 text-sm">Traditional: {row.traditional}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                      <i className="ri-check-line text-white text-xs"></i>
-                    </div>
-                    <span className="text-gray-900 font-medium text-sm">Nyota: {row.nyota}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Global by default. Local where it matters. */}
-          <motion.div
-            className="bg-gradient-to-r from-burgundy-50 to-orange-50 rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 border border-burgundy-100"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">Global by default. Local where it matters.</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center">
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mb-3">
-                  <i className="ri-money-dollar-circle-line text-white text-lg sm:text-xl"></i>
-                </div>
-                <p className="font-semibold text-gray-900 text-sm sm:text-base">USD + KES/UGX/RWF/ZAR</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-3">
-                  <i className="ri-message-3-line text-white text-lg sm:text-xl"></i>
-                </div>
-                <p className="font-semibold text-gray-900 text-sm sm:text-base">WhatsApp + Email + SMS in one inbox</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-3">
-                  <i className="ri-time-line text-white text-lg sm:text-xl"></i>
-                </div>
-                <p className="font-semibold text-gray-900 text-sm sm:text-base">Data migration in 48h</p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <p className="text-gray-600 mb-4 text-sm sm:text-base px-4">Set up in <strong>15 minutes</strong>. We migrate your data in <strong>48 hours</strong>.</p>
-            <motion.a
-              {...scaleOnHover}
-              href="https://wa.me/256709490920?text=Hi%20Nyota!%20I'd%20like%20to%20switch%20to%20Nyota%20CRM%20and%20migrate%20my%20data.%20Can%20you%20help%20me%20get%20started%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gradient-to-r from-burgundy-800 to-burgundy-700 hover:from-burgundy-700 hover:to-burgundy-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap cursor-pointer text-sm sm:text-base inline-block"
-            >
-              Switch to Nyota — Migrate in 48h
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Case Studies */}
-      <section id="case-studies" className="py-16 sm:py-24 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            className="text-center mb-12 sm:mb-20"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-8 bg-gradient-to-r from-gray-900 via-burgundy-800 to-gray-900 bg-clip-text text-transparent"
-              whileInView={{ scale: [0.9, 1] }}
-              transition={{ duration: 0.8 }}
-            >
-              Success Stories
-            </motion.h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Real results from institutions that transformed their lead conversion with Nyota.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={staggerContainer}
-          >
-            {/* Education Case Study */}
-            <motion.div
-              className="bg-white p-6 sm:p-8 lg:p-12 rounded-2xl border border-gray-200 shadow-xl"
-              variants={fadeInUp}
-              whileHover={{ scale: 1.02 }}
-            >
-              <motion.h3
-                className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-gray-900"
-                whileInView={{ scale: [0.95, 1] }}
-                transition={{ duration: 0.6 }}
-              >
-                Education: +35% Faster Follow-ups at International University of East Africa
-              </motion.h3>
-              
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
-                <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-burgundy-800 to-burgundy-700 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                    <i className="ri-alarm-warning-line text-white text-sm sm:text-lg"></i>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm">Problem</h4>
-                  <p className="text-gray-600 text-xs">Manual follow-ups led to delayed responses</p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                    <i className="ri-settings-3-line text-white text-sm sm:text-lg"></i>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm">Solution</h4>
-                  <p className="text-gray-600 text-xs">Unified inbox + automated workflows</p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                    <i className="ri-trophy-line text-white text-sm sm:text-lg"></i>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm">Results</h4>
-                  <p className="text-amber-600 font-semibold text-xs">+35% response speed</p>
-                </div>
-              </div>
-
-              {/* Compact Outcome Bullets */}
-              <div className="mb-4 sm:mb-6">
-                <h4 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Key Outcomes:</h4>
-                <ul className="space-y-1 sm:space-y-2">
-                  <li className="flex items-center text-gray-700 text-xs sm:text-sm">
-                    <div className="w-2 h-2 bg-success-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                    <span><strong className="text-amber-600">+35% faster follow-ups</strong> with automated responses</span>
-                  </li>
-                  <li className="flex items-center text-gray-700 text-xs sm:text-sm">
-                    <div className="w-2 h-2 bg-success-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                    <span><strong className="text-amber-600">+18% booked meetings</strong> through unified inbox</span>
-                  </li>
-                  <li className="flex items-center text-gray-700 text-xs sm:text-sm">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                    <strong>Setup in 15 min</strong> with zero disruption
-                  </li>
-                </ul>
-              </div>
-              
-              <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-xs sm:text-sm">
-                International University of East Africa achieved 35% faster response times and 18% more booked meetings after implementing Nyota's unified inbox and automated workflows.
-              </p>
-            </motion.div>
-
-            {/* DRC University Case Study */}
-            <motion.div
-              className="bg-white p-6 sm:p-8 lg:p-12 rounded-2xl border border-gray-200 shadow-xl"
-              variants={fadeInUp}
-              whileHover={{ scale: 1.02 }}
-            >
-              <motion.h3
-                className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-gray-900"
-                whileInView={{ scale: [0.95, 1] }}
-                transition={{ duration: 0.6 }}
-              >
-                Admissions: +19% Application Starts at Université de la Paix de la RDC
-              </motion.h3>
-              
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
-                <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                    <i className="ri-user-search-line text-white text-sm sm:text-lg"></i>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm">Challenge</h4>
-                  <p className="text-gray-600 text-xs">Low inquiry-to-application conversion</p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                    <i className="ri-robot-line text-white text-sm sm:text-lg"></i>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm">AI Solution</h4>
-                  <p className="text-gray-600 text-xs">Intent scoring + timed nudges</p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                    <i className="ri-graduation-cap-line text-white text-sm sm:text-lg"></i>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm">Impact</h4>
-                  <p className="text-gray-600 text-xs">+19% application starts</p>
-                </div>
-              </div>
-
-              {/* Compact Outcome Bullets */}
-              <div className="mb-4 sm:mb-6">
-                <h4 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Key Outcomes:</h4>
-                <ul className="space-y-1 sm:space-y-2">
-                  <li className="flex items-center text-gray-700 text-xs sm:text-sm">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                    <strong>+19% application starts</strong> in one semester
-                  </li>
-                  <li className="flex items-center text-gray-700 text-xs sm:text-sm">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                    <strong>WhatsApp-first approach</strong> for African market
-                  </li>
-                  <li className="flex items-center text-gray-700 text-xs sm:text-sm">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                    <strong>Email + WhatsApp</strong> unified workflow
-                  </li>
-                </ul>
-              </div>
-              
-              <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-xs sm:text-sm">
-                Université de la Paix de la RDC used AI-timed nurturing to increase inquiry-to-application conversion by 19% with WhatsApp-first communication strategy.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            className="text-center mb-12 sm:mb-20"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-gray-900 via-burgundy-800 to-gray-900 bg-clip-text text-transparent"
-              whileInView={{ scale: [0.9, 1] }}
-              transition={{ duration: 0.8 }}
-            >
-              What Our Customers Say
-            </motion.h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Real results from businesses that transformed their lead conversion with Nyota.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={staggerContainer}
-          >
-            {[
-              {
-                quote: "Nyota transformed our technology infrastructure and lead management system completely.",
-                name: "Dr. Adam",
-                role: "CEO",
-                company: "Bora Technology",
-                gradient: "from-blue-500 to-purple-600",
-                rating: 5
-              },
-              {
-                quote: "Outstanding results in student enrollment and engagement. A game-changer for our institution.",
-                name: "Prof. Emeka",
-                role: "Vice Chancellor",
-                company: "International University of East Africa",
-                gradient: "from-green-500 to-teal-600",
-                rating: 5
-              },
-              {
-                quote: "The unified communication platform has significantly improved our admissions process and student satisfaction.",
-                name: "Mr. Joseph",
-                role: "Director of Admissions",
-                company: "Université de la Paix de la RDC",
-                gradient: "from-burgundy-800 to-orange-600",
-                rating: 5
-              }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 h-auto"
-                variants={fadeInUp}
-                whileHover={{ y: -5, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="flex text-amber-500 mb-4 sm:mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <i key={i} className="ri-star-fill text-base sm:text-lg"></i>
-                  ))}
-                </div>
-                
-                <p className="text-gray-700 text-base sm:text-lg mb-4 sm:mb-6 leading-relaxed font-medium">
-                  "{testimonial.quote}"
-                </p>
-                
-                <div className="flex items-center">
-                  <motion.div
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-burgundy-800 to-burgundy-700 flex items-center justify-center mr-3 sm:mr-4 shadow-lg flex-shrink-0"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <span className="text-white font-bold text-sm sm:text-base">
-                      {testimonial.name.split(' ').map(n => n[0]).join('')}
-                    </span>
-                  </motion.div>
-                  <div className="min-w-0">
-                    <p className="font-semibold text-gray-900 text-sm sm:text-base">{testimonial.name}</p>
-                    <p className="text-gray-600 text-xs sm:text-sm">{testimonial.role}</p>
-                    <div className={`inline-flex items-center px-2 py-1 rounded-full bg-gradient-to-r ${testimonial.gradient} text-white text-xs font-medium mt-1`}>
-                      {testimonial.company}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            className="text-center mt-8 sm:mt-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <motion.a
-              {...scaleOnHover}
-              href="https://wa.me/256709490920?text=Hi%20Nyota!%20I'd%20like%20to%20book%20a%2015-minute%20demo%20to%20learn%20how%20you%20can%20help%20my%20business.%20Looking%20forward%20to%20connecting!"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gradient-to-r from-burgundy-800 to-burgundy-700 hover:from-burgundy-700 hover:to-burgundy-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap cursor-pointer text-sm sm:text-base inline-block"
-            >
-              Book a 15-Minute Demo
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-r from-white to-blue-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <motion.div
-            className="text-center mb-12 sm:mb-20"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-gray-900 via-burgundy-800 to-gray-900 bg-clip-text text-transparent"
-              whileInView={{ scale: [0.9, 1] }}
-              transition={{ duration: 0.8 }}
-            >
-              Frequently Asked Questions
-            </motion.h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed px-4">
-              Everything you need to know about Nyota CRM.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="space-y-3 sm:space-y-4"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={staggerContainer}
-          >
-            {[
-              {
-                question: "Do you support local currencies?",
-                answer: "Yes: KES, UGX, RWF, ZAR, USD. We support all major African currencies plus USD for international transactions, with automatic conversion and local payment method integration."
-              },
-              {
-                question: "How fast is onboarding?",
-                answer: "15 minutes (+ assisted migration in 48h). Our setup wizard gets you running immediately, and our team provides free data migration from any existing CRM within 48 hours."
-              },
-              {
-                question: "Integrations?",
-                answer: "WhatsApp, Email, CSV import; API available. We integrate with WhatsApp Business API, all major email platforms, and provide robust API access for custom integrations."
-              },
-              {
-                question: "How secure is my data with Nyota?",
-                answer: "Security is our top priority. We use enterprise-grade encryption, regular security audits, and comply with GDPR, SOC 2, and other international standards. Your data is hosted on secure servers with 99.9% uptime guarantee."
-              },
-              {
-                question: "Can I migrate my data from other CRMs?",
-                answer: "Yes, we provide free data migration assistance for all paid plans. Our team will help you import contacts, deals, and conversation history from Salesforce, HubSpot, or any other CRM platform."
-              },
-              {
-                question: "Do you offer local support in Africa?",
-                answer: "Absolutely! We provide 24/7 support with local teams across Africa. Our support staff understand local business practices and can assist in multiple languages including English, French, and Swahili."
-              }
-            ].map((faq, index) => (
-              <motion.div
-                key={index}
-                className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden"
-                variants={fadeInUp}
-                whileHover={{ scale: 1.01 }}
-              >
-                <motion.button
-                  className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-burgundy-700 focus:ring-inset min-h-[48px] sm:min-h-[56px]"
-                  onClick={() => toggleFAQ(index)}
-                  whileHover={{ x: 5 }}
-                  aria-expanded={expandedFAQ.includes(index)}
-                >
-                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 pr-4">{faq.question}</h3>
-                  <motion.div
-                    animate={{ rotate: expandedFAQ.includes(index) ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex-shrink-0 w-4 h-4 sm:w-6 sm:h-6 flex items-center justify-center"
-                  >
-                    <i className="ri-arrow-down-s-line text-xl sm:text-2xl text-gray-400"></i>
-                  </motion.div>
-                </motion.button>
+            {/* Background Decorative Elements */}
+            <div className="absolute inset-0 bg-gradient-to-br from-royal-azure/5 via-transparent to-sunlit-amber/5 rounded-3xl"></div>
+            
+            {/* Workflow Container */}
+            <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 sm:p-12 lg:p-16">
+              {/* Workflow Steps */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
+                {/* Step 1: Lead Comes In */}
                 <motion.div
-                  initial={false}
-                  animate={{
-                    height: expandedFAQ.includes(index) ? 'auto' : 0,
-                    opacity: expandedFAQ.includes(index) ? 1 : 0
-                  }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className="overflow-hidden"
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="relative"
                 >
-                  <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-5 lg:pb-6">
-                    <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{faq.answer}</p>
+                  <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border-2 border-green-200 relative group hover:shadow-lg transition-shadow">
+                    {/* Step Number */}
+                    <div className="absolute -top-4 -left-4 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      1
+                    </div>
+                    
+                    {/* Icon */}
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
+                      <svg className="w-9 h-9 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                      </svg>
+                    </div>
+
+                    <h3 className="text-lg font-bold text-midnight-cosmos mb-2">Lead Reaches Out</h3>
+                    <p className="text-sm text-gray-600">Via WhatsApp, Email, SMS, or Web Form</p>
+
+                    {/* Sample Messages */}
+                    <div className="mt-4 space-y-2">
+                      <div className="bg-white rounded-lg p-3 shadow-sm border border-green-100 text-xs">
+                        <p className="text-green-700 font-semibold mb-1">WhatsApp</p>
+                        <p className="text-gray-600">"Hi, I need info about..."</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3 shadow-sm border border-blue-100 text-xs">
+                        <p className="text-blue-700 font-semibold mb-1">Email</p>
+                        <p className="text-gray-600">"Interested in your services"</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Arrow to Next Step (Desktop) */}
+                  <div className="hidden md:block absolute top-1/2 -right-6 lg:-right-10 transform -translate-y-1/2 z-10">
+                    <svg className="w-8 h-8 lg:w-12 lg:h-12 text-royal-azure" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
                   </div>
                 </motion.div>
-              </motion.div>
-            ))}
+
+                {/* Step 2: AI Processes */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="relative"
+                >
+                  <div className="bg-gradient-to-br from-royal-azure/10 to-royal-azure/20 rounded-2xl p-6 border-2 border-royal-azure/30 relative group hover:shadow-lg transition-shadow">
+                    {/* Step Number */}
+                    <div className="absolute -top-4 -left-4 w-10 h-10 bg-royal-azure rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      2
+                    </div>
+                    
+                    {/* Icon */}
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
+                      <svg className="w-9 h-9 text-royal-azure" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+
+                    <h3 className="text-lg font-bold text-midnight-cosmos mb-2">Nyota AI Takes Over</h3>
+                    <p className="text-sm text-gray-600">Instant capture, smart routing, auto-response</p>
+
+                    {/* AI Processing Visual */}
+                    <div className="mt-4 bg-white rounded-xl p-4 shadow-sm border border-royal-azure/20">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-xs font-semibold text-gray-700">Processing...</span>
+                      </div>
+                      
+                      <div className="space-y-2 text-xs">
+                        <div className="flex items-center gap-2">
+                          <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          <span className="text-gray-600">Lead captured</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          <span className="text-gray-600">Profile created</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          <span className="text-gray-600">Agent assigned</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-royal-azure border-t-transparent rounded-full animate-spin"></div>
+                          <span className="text-gray-600">Sending response...</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Arrow to Next Step (Desktop) */}
+                  <div className="hidden md:block absolute top-1/2 -right-6 lg:-right-10 transform -translate-y-1/2 z-10">
+                    <svg className="w-8 h-8 lg:w-12 lg:h-12 text-royal-azure" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </motion.div>
+
+                {/* Step 3: Lead Converted */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="relative"
+                >
+                  <div className="bg-gradient-to-br from-sunlit-amber/10 to-sunlit-amber/20 rounded-2xl p-6 border-2 border-sunlit-amber/30 relative group hover:shadow-lg transition-shadow">
+                    {/* Step Number */}
+                    <div className="absolute -top-4 -left-4 w-10 h-10 bg-sunlit-amber rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      3
+                    </div>
+                    
+                    {/* Icon */}
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
+                      <svg className="w-9 h-9 text-sunlit-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+
+                    <h3 className="text-lg font-bold text-midnight-cosmos mb-2">Lead Becomes Customer</h3>
+                    <p className="text-sm text-gray-600">Automated follow-ups nurture until sale</p>
+
+                    {/* Success Metrics */}
+                    <div className="mt-4 space-y-3">
+                      <div className="bg-white rounded-xl p-3 shadow-sm border border-sunlit-amber/20">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs font-semibold text-gray-700">Response Time</span>
+                          <span className="text-xs font-bold text-green-600">Instant</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '100%' }}></div>
+                        </div>
+                      </div>
+
+                      <div className="bg-white rounded-xl p-3 shadow-sm border border-sunlit-amber/20">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs font-semibold text-gray-700">Engagement</span>
+                          <span className="text-xs font-bold text-royal-azure">95%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-royal-azure h-2 rounded-full" style={{ width: '95%' }}></div>
+                        </div>
+                      </div>
+
+                      <div className="bg-white rounded-xl p-3 shadow-sm border border-sunlit-amber/20">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs font-semibold text-gray-700">Conversion</span>
+                          <span className="text-xs font-bold text-sunlit-amber">3x Higher</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-sunlit-amber h-2 rounded-full" style={{ width: '85%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Success Badge */}
+                    <div className="mt-4 bg-green-50 rounded-lg p-3 border border-green-200 text-center">
+                      <p className="text-2xl font-bold text-green-600">💰</p>
+                      <p className="text-xs font-semibold text-green-700 mt-1">Deal Closed!</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
           </motion.div>
 
+          {/* Bottom Stats */}
           <motion.div
-            className="text-center mt-8 sm:mt-12 lg:mt-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="mt-16 text-center"
           >
-            <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Still have questions?</p>
-            <motion.a
-              {...scaleOnHover}
-              href="https://wa.me/256709490920?text=Hi%20Nyota%20Support!%20I%20have%20some%20questions%20about%20your%20CRM.%20Can%20you%20help%20me%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gradient-to-r from-coral-500 to-coral-600 hover:from-coral-600 hover:to-coral-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap cursor-pointer focus:outline-none focus:ring-2 focus:ring-coral-500 focus:ring-offset-2 text-sm sm:text-base inline-block"
+            <Link
+              href="https://wa.me/256709490920?text=I%20want%20to%20see%20Nyota%20in%20action"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-royal-azure to-royal-azure/90 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all hover:scale-105"
             >
-              Contact Support
-            </motion.a>
+              See It In Action
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* Global Reach, Local Expertise - Desktop Only */}
-      <section className="hidden sm:block py-24 bg-gradient-to-r from-white to-blue-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            className="text-center mb-20"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <motion.h2
-              className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-gray-900 via-burgundy-800 to-gray-900 bg-clip-text text-transparent"
-              whileInView={{ scale: [0.9, 1] }}
-              transition={{ duration: 0.8 }}
-            >
-              Global Reach, Local Expertise
-            </motion.h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Serving businesses worldwide with local payment methods and regional compliance.
-            </p>
-          </motion.div>
+  {/* Key Features Showcase Section */}
+  <KeyFeaturesShowcase />
 
-          <motion.div
-            className="grid md:grid-cols-4 gap-8 text-center"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={staggerContainer}
-          >
-            {[
-              { number: '180+', label: 'Clients', gradient: 'from-burgundy-800 to-burgundy-700' },
-              { number: '50+', label: 'Partners', gradient: 'from-blue-500 to-blue-600' },
-              { number: '25', label: 'Countries', gradient: 'from-green-500 to-green-600' },
-              { number: '24/7', label: 'Support', gradient: 'from-purple-500 to-purple-600' },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                className="bg-white p-8 rounded-2xl border border-gray-200 shadow-lg"
-                variants={fadeInUp}
-                whileHover={{ scale: 1.05, y: -5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className={`text-4xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-4`}>
-                  {stat.number}
-                </div>
-                <p className="text-gray-600 font-medium">{stat.label}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Features That Drive Results */}
-      <section id="features" className="py-16 sm:py-24 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            className="text-center mb-12 sm:mb-20"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-8 bg-gradient-to-r from-gray-900 via-burgundy-800 to-gray-900 bg-clip-text text-transparent"
-              whileInView={{ scale: [0.9, 1] }}
-              transition={{ duration: 0.8 }}
-            >
-              Features That Drive Results
-            </motion.h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Everything you need to turn prospects into customers and grow your business with intelligent automation.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={staggerContainer}
-          >
-            {[
-              {
-                title: 'Smart Lead Scoring',
-                description: 'Know who\'s ready to buy—now. AI-powered scoring identifies your hottest prospects automatically.',
-                icon: 'ri-brain-line',
-                gradient: 'from-purple-400 to-purple-600',
-              },
-              {
-                title: 'Multi-Channel Messaging',
-                description: 'WhatsApp, Email & SMS in one inbox. Manage all customer conversations from one unified platform.',
-                icon: 'ri-message-3-line',
-                gradient: 'from-green-400 to-green-600',
-              },
-              {
-                title: 'Workflow Automation',
-                description: 'Free up 20+ hours every week. Automate follow-ups, task assignments, and deal progression.',
-                icon: 'ri-settings-3-line',
-                gradient: 'from-blue-400 to-blue-600',
-              },
-              {
-                title: 'Secure Data Protection',
-                description: 'Bank-grade protection for every lead. FERPA-aware and SOC-aligned security with global compliance.',
-                icon: 'ri-shield-check-line',
-                gradient: 'from-trust-500 to-trust-600',
-              },
-              {
-                title: 'Advanced Analytics',
-                description: 'Spot revenue patterns instantly. Real-time insights into conversion performance and team productivity.',
-                icon: 'ri-line-chart-line',
-                gradient: 'from-orange-400 to-orange-600',
-              },
-              {
-                title: 'AI Insights',
-                description: 'Next-best action for every lead. Machine learning that gets smarter with every interaction.',
-                icon: 'ri-lightbulb-line',
-                gradient: 'from-teal-400 to-teal-600',
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                className="group bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 hover:border-burgundy-300 transition-all duration-300 shadow-lg hover:shadow-2xl"
-                variants={fadeInUp}
-                whileHover={{ y: -10, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className={`w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r ${feature.gradient} rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <i className={`${feature.icon} text-white text-xl sm:text-2xl`}></i>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 group-hover:text-burgundy-700 transition-colors duration-300">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{feature.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Security/Compliance Band */}
-      <section className="py-6 sm:py-8 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 lg:gap-8 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="flex items-center space-x-2">
-              <i className="ri-shield-check-line text-success-500"></i>
-              <span className="text-xs sm:text-sm font-medium">99.9% uptime</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <i className="ri-award-line text-trust-500"></i>
-              <span className="text-xs sm:text-sm font-medium">SOC-aligned controls</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <i className="ri-graduation-cap-line text-trust-500"></i>
-              <span className="text-xs sm:text-sm font-medium">FERPA-aware for admissions</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <i className="ri-lock-line text-trust-600"></i>
-              <span className="text-xs sm:text-sm font-medium">Encrypted at rest & in transit</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <i className="ri-user-settings-line text-teal-400"></i>
-              <span className="text-xs sm:text-sm font-medium">GDPR-style data rights</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
-      <section id="contact" className="py-16 sm:py-24 bg-gradient-to-br from-burgundy-50 via-white to-orange-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 lg:mb-8 bg-gradient-to-r from-gray-900 via-burgundy-800 to-gray-900 bg-clip-text text-transparent"
-              whileInView={{ scale: [0.9, 1] }}
-              transition={{ duration: 0.8 }}
-            >
-              Ready to Grow Your Business with Nyota Fusion AI?
-            </motion.h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 lg:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
-              Join hundreds of African businesses using Nyota CRM to increase sales, improve customer relationships, and grow faster with intelligent automation.
-            </p>
-
-            {/* Team Contact Cards */}
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <motion.div
-                className="bg-white p-4 sm:p-6 rounded-2xl border border-gray-200 shadow-lg"
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-burgundy-800 to-burgundy-700 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <span className="text-white font-bold text-lg sm:text-xl">JM</span>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Joel Mugisho</h3>
-                <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">Sales Director</p>
-                <p className="text-gray-500 text-xs sm:text-sm">Book a personalized demo</p>
-              </motion.div>
-              
-              <motion.div
-                className="bg-white p-4 sm:p-6 rounded-2xl border border-gray-200 shadow-lg"
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <span className="text-white font-bold text-lg sm:text-xl">GO</span>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Gael Ongoriko</h3>
-                <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">Customer Success</p>
-                <p className="text-gray-500 text-xs sm:text-sm">Get onboarding support</p>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-12 lg:mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <motion.a
-                {...scaleOnHover}
-                href="https://wa.me/256709490920?text=Hi%20Nyota!%20I'd%20like%20to%20book%20a%2015-minute%20demo%20to%20learn%20how%20you%20can%20help%20my%20business.%20Looking%20forward%20to%20connecting!"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-gradient-to-r from-burgundy-800 to-burgundy-700 hover:from-burgundy-700 hover:to-burgundy-800 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl whitespace-nowrap cursor-pointer flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-burgundy-700 focus:ring-offset-2"
-              >
-                <span>Book a 15-Minute Demo</span>
-                <i className="ri-arrow-right-line ml-2 text-lg sm:text-xl"></i>
-              </motion.a>
-              <motion.a
-                {...scaleOnHover}
-                href="https://wa.me/256709490920?text=Hi%20Nyota%2C%20I'd%20like%20a%20demo."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto border-2 border-success-200 hover:border-success-400 bg-success-50 hover:bg-success-100 text-success-700 hover:text-success-800 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300 hover:shadow-lg whitespace-nowrap cursor-pointer flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-success-500 focus:ring-offset-2"
-              >
-                <i className="ri-whatsapp-line mr-2 text-lg sm:text-xl"></i>
-                <span>Chat on WhatsApp</span>
-              </motion.a>
-            </motion.div>
-
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full flex items-center justify-center mb-3">
-                  <i className="ri-time-line text-white text-lg sm:text-xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">15-Minute Setup</h3>
-                <p className="text-gray-600 text-xs sm:text-sm">Quick onboarding process</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-trust-400 to-trust-500 rounded-full flex items-center justify-center mb-3">
-                  <i className="ri-shield-check-line text-white text-lg sm:text-xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">No Credit Card</h3>
-                <p className="text-gray-600 text-xs sm:text-sm">30-day free trial</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center mb-3">
-                  <i className="ri-customer-service-2-line text-white text-lg sm:text-xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">24/7 Support</h3>
-                <p className="text-gray-600 text-xs sm:text-sm">Global assistance</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Industry Use Cases Section */}
+      <IndustryUseCases />
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8 sm:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Logo and Social Media */}
-          <div className="flex flex-col items-center mb-6 sm:mb-8">
-            <motion.div
-              className="mb-4 sm:mb-6 bg-white rounded-xl px-6 py-3"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-            >
+      <footer className="bg-midnight-cosmos text-white py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            {/* Logo and Description */}
+            <div className="col-span-1 md:col-span-2">
               <Image
                 src="/logo.png"
                 alt="Nyota Logo"
                 width={150}
                 height={50}
-                className="w-auto h-10 sm:h-12"
+                className="w-auto h-12 mb-4 brightness-0 invert"
               />
-            </motion.div>
-            
-            {/* Social Media Icons */}
-            <div className="flex space-x-4 mb-6">
-              {[
-                { icon: 'ri-linkedin-line', href: '#', label: 'LinkedIn' },
-                { icon: 'ri-twitter-line', href: '#', label: 'Twitter' },
-                { icon: 'ri-instagram-line', href: '#', label: 'Instagram' }
-              ].map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-10 h-10 bg-gray-800 hover:bg-burgundy-800 rounded-full flex items-center justify-center transition-colors duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-burgundy-700 focus:ring-offset-2 focus:ring-offset-gray-900"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <i className={`${social.icon} text-lg`}></i>
-                </motion.a>
-              ))}
+              <p className="text-gray-300 text-sm mb-4 max-w-md">
+                Put your business growth on autopilot with intelligent marketing and sales automation.
+              </p>
+              <div className="flex space-x-4">
+                {[
+                  { icon: 'ri-linkedin-line', href: '#', label: 'LinkedIn' },
+                  { icon: 'ri-twitter-line', href: '#', label: 'Twitter' },
+                  { icon: 'ri-facebook-line', href: '#', label: 'Facebook' },
+                  { icon: 'ri-instagram-line', href: '#', label: 'Instagram' }
+                ].map((social, index) => (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-10 h-10 bg-graphite-gray hover:bg-royal-azure rounded-full flex items-center justify-center transition-colors"
+                  >
+                    <i className={`${social.icon} text-lg`}></i>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="font-bold text-white mb-4">Solutions</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li><Link href="#" className="hover:text-sunlit-amber transition-colors">Marketing Automation</Link></li>
+                <li><Link href="#" className="hover:text-sunlit-amber transition-colors">Sales Pipeline</Link></li>
+                <li><Link href="#" className="hover:text-sunlit-amber transition-colors">Lead Scoring</Link></li>
+                <li><Link href="#" className="hover:text-sunlit-amber transition-colors">Email Marketing</Link></li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h3 className="font-bold text-white mb-4">Company</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li><Link href="#" className="hover:text-sunlit-amber transition-colors">About Us</Link></li>
+                <li><Link href="#" className="hover:text-sunlit-amber transition-colors">Pricing</Link></li>
+                <li><Link href="#" className="hover:text-sunlit-amber transition-colors">Contact</Link></li>
+                <li><Link href="#" className="hover:text-sunlit-amber transition-colors">Support</Link></li>
+              </ul>
             </div>
           </div>
 
-          {/* Legal Links and Copyright */}
-          <div className="border-t border-gray-800 pt-6">
-            <div className="flex flex-col items-center space-y-4">
-              {/* Legal Links */}
-              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-sm">
-                <Link 
-                  href="/privacy" 
-                  className="text-gray-400 hover:text-white transition-colors cursor-pointer focus:outline-none focus:text-white"
-                >
+          {/* Bottom Bar */}
+          <div className="border-t border-graphite-gray pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-gray-400 text-sm text-center md:text-left">
+                © {new Date().getFullYear()} Nyota. All rights reserved.
+              </p>
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-sm text-gray-400">
+                <Link href="/privacy" className="hover:text-sunlit-amber transition-colors">
                   Privacy Policy
                 </Link>
-                <span className="text-gray-600">•</span>
-                <Link 
-                  href="/terms" 
-                  className="text-gray-400 hover:text-white transition-colors cursor-pointer focus:outline-none focus:text-white"
-                >
+                <span>•</span>
+                <Link href="/terms" className="hover:text-sunlit-amber transition-colors">
                   Terms of Service
                 </Link>
-                <span className="text-gray-600">•</span>
-                <Link 
-                  href="/cookies" 
-                  className="text-gray-400 hover:text-white transition-colors cursor-pointer focus:outline-none focus:text-white"
-                >
+                <span>•</span>
+                <Link href="/cookies" className="hover:text-sunlit-amber transition-colors">
                   Cookie Policy
                 </Link>
               </div>
-              
-              {/* Copyright */}
-              <p className="text-gray-500 text-xs sm:text-sm text-center">
-                © {new Date().getFullYear()} Nyota Fusion AI. All rights reserved.
-              </p>
             </div>
           </div>
         </div>
