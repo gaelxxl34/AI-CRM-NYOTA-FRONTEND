@@ -39,14 +39,14 @@ export default function Home() {
             </Link>
             
             <div className="hidden md:flex items-center space-x-8">
-              <Link href="#solutions" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
-                Solutions
+              <Link href="#features" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
+                Features
               </Link>
-              <Link href="#pricing" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
-                Pricing
+              <Link href="#how-it-works" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
+                How It Works
               </Link>
-              <Link href="#resources" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
-                Resources
+              <Link href="#industries" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
+                Industries
               </Link>
               <a href="tel:+256749117690" className="text-graphite-gray hover:text-royal-azure transition-colors">+256 749 117 690</a>
               <Link href="#login" className="text-graphite-gray hover:text-royal-azure transition-colors font-medium">
@@ -454,7 +454,7 @@ export default function Home() {
       </section>
 
       {/* Problem Statement Section */}
-      <section className="py-20 sm:py-32 bg-white relative overflow-hidden">
+      <section id="how-it-works" className="py-20 sm:py-32 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <motion.div
@@ -690,10 +690,14 @@ export default function Home() {
       </section>
 
   {/* Key Features Showcase Section */}
-  <KeyFeaturesShowcase />
+  <div id="features">
+    <KeyFeaturesShowcase />
+  </div>
 
       {/* Industry Use Cases Section */}
-      <IndustryUseCases />
+      <div id="industries">
+        <IndustryUseCases />
+      </div>
 
       {/* Footer */}
       <footer className="bg-midnight-cosmos text-white py-12 sm:py-16">
