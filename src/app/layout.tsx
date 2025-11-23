@@ -48,9 +48,9 @@ export const metadata: Metadata = {
       'WhatsApp-first CRM for African businesses. Unify channels, automate follow-ups, and convert more leads faster.',
     images: [
       {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
+        url: '/link.png',
+        width: 2752,
+        height: 1536,
         alt: 'Nyota Fusion AI - WhatsApp-First Customer Relationship Management',
       },
     ],
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Nyota Fusion AI - Turn Inquiries Into Income Automatically',
     description: 'Unify WhatsApp, Email & SMS. AI-powered scoring, automated follow-ups. Convert leads 35% faster.',
-    images: ['/og-image.png'],
+    images: ['/link.png'],
     creator: '@NyotaFusionAI',
     site: '@NyotaFusionAI',
   },
@@ -76,12 +76,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon logo.png' },
+      { url: '/icon logo.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icon logo.png', sizes: '32x32', type: 'image/png' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/icon logo.png', sizes: '180x180', type: 'image/png' },
     ],
     other: [
       {

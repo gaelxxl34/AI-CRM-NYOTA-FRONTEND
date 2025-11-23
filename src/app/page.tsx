@@ -716,25 +716,17 @@ export default function Home() {
                 Put your business growth on autopilot with intelligent marketing and sales automation.
               </p>
               <div className="flex space-x-4">
-                {[
-                  { icon: 'ri-linkedin-line', href: '#', label: 'LinkedIn' },
-                  { icon: 'ri-twitter-line', href: '#', label: 'Twitter' },
-                  { icon: 'ri-facebook-line', href: '#', label: 'Facebook' },
-                  { icon: 'ri-instagram-line', href: '#', label: 'Instagram' }
-                ].map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-10 h-10 bg-graphite-gray hover:bg-royal-azure rounded-full flex items-center justify-center transition-colors"
-                  >
-                    <i className={`${social.icon} text-lg`}></i>
-                  </motion.a>
-                ))}
+                <motion.a
+                  href="https://www.linkedin.com/company/nyota-innovations/?viewAsMember=true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-10 h-10 bg-graphite-gray hover:bg-royal-azure rounded-full flex items-center justify-center transition-colors"
+                >
+                  <i className="ri-linkedin-line text-lg"></i>
+                </motion.a>
               </div>
             </div>
 
