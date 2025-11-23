@@ -48,10 +48,11 @@ export const metadata: Metadata = {
       'WhatsApp-first CRM for African businesses. Unify channels, automate follow-ups, and convert more leads faster.',
     images: [
       {
-        url: 'https://nyotafusionai.com/link-og.png',
+        url: '/link-og.png',
         width: 1200,
         height: 630,
         alt: 'Nyota Fusion AI - WhatsApp-First Customer Relationship Management',
+        type: 'image/png',
       },
     ],
   },
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Nyota Fusion AI - Turn Inquiries Into Income Automatically',
     description: 'Unify WhatsApp, Email & SMS. AI-powered scoring, automated follow-ups. Convert leads 35% faster.',
-    images: ['https://nyotafusionai.com/link-og.png'],
+    images: ['/link-og.png'],
     creator: '@NyotaFusionAI',
     site: '@NyotaFusionAI',
   },
